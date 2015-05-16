@@ -2,17 +2,20 @@
 
 namespace MealPlannerService
 {
-    static class Program
+    /// <summary>
+    /// The main program entry point.
+    /// </summary>
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main()
+        private static void Main()
         {
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
-                new Service1() 
+                new WindowsService() 
             };
             ServiceBase.Run(ServicesToRun);
         }
