@@ -1,5 +1,8 @@
 ﻿using NDatabase.Api;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Weimer.MealPlanner.Core.Model;
 
 namespace Weimer.MealPlanner.Data
 {
@@ -30,7 +33,40 @@ namespace Weimer.MealPlanner.Data
         /// <returns>An instance of <see cref="RecipeDatabase"/> that is ready to be queried.</returns>
         public static RecipeDatabase Open()
         {
-            return new RecipeDatabase();
+            var db = new RecipeDatabase();
+            if (!db._odb.IndexManagerFor<Recipe>().ExistIndex("nameIndex"))
+            {
+                db._odb.IndexManagerFor<Recipe>().AddUniqueIndexOn("nameIndex", new[] { "Name" });
+            }
+
+            return db;
+        }
+
+        /// <summary>
+        /// Gets all recipes.
+        /// </summary>
+        /// <returns>A collection of all <see cref="Recipe"/> objects stored in the database.</returns>
+        public IList<Recipe> GetAllRecipes()
+        {
+            return _odb.AsQueryable<Recipe>().ToList();
+        }
+
+        /// <summary>
+        /// Add or update the specified <see cref="Recipe"/> in the database.
+        /// </summary>
+        /// <param name="recipe">The recipe.</param>
+        public void SaveRecipe(Recipe recipe)
+        {
+            _odb.Store(recipe);
+        }
+
+        /// <summary>
+        /// Deletes the specified <see cref="Recipe"/> from the database.
+        /// </summary>
+        /// <param name="recipe">The recipe.</param>
+        public void DeleteRecipe(Recipe recipe)
+        {
+            _odb.Delete(recipe);
         }
 
         /// <summary>

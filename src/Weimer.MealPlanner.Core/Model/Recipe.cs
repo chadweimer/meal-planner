@@ -14,6 +14,7 @@ namespace Weimer.MealPlanner.Core.Model
         {
             Ingredients = new List<Ingredient>();
             Directions = new List<string>();
+            Tags = new List<string>();
         }
 
         /// <summary>
@@ -47,5 +48,24 @@ namespace Weimer.MealPlanner.Core.Model
         /// The directions.
         /// </value>
         public IList<string> Directions { get; private set; }
+
+        /// <summary>
+        /// Gets a collection of tags applies to the recipe.
+        /// </summary>
+        /// <value>
+        /// The tags.
+        /// </value>
+        public IList<string> Tags { get; private set; }
+
+        /// <summary>
+        /// Returns a <see cref="string" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
