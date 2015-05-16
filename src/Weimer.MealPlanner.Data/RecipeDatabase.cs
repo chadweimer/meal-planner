@@ -1,4 +1,5 @@
-﻿using NDatabase.Api;
+﻿using NDatabase;
+using NDatabase.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,9 @@ namespace Weimer.MealPlanner.Data
         private const string DATABASE_FILE_NAME = "RecipeDb.ndb";
         private readonly IOdb _odb;
 
-        private RecipeDatabase()
+        private RecipeDatabase(IOdb odb)
         {
-            _odb = NDatabase.OdbFactory.Open(DATABASE_FILE_NAME);
+            _odb = odb;
         }
 
         /// <summary>
@@ -33,13 +34,30 @@ namespace Weimer.MealPlanner.Data
         /// <returns>An instance of <see cref="RecipeDatabase"/> that is ready to be queried.</returns>
         public static RecipeDatabase Open()
         {
-            var db = new RecipeDatabase();
-            if (!db._odb.IndexManagerFor<Recipe>().ExistIndex("nameIndex"))
-            {
-                db._odb.IndexManagerFor<Recipe>().AddUniqueIndexOn("nameIndex", new[] { "Name" });
-            }
+            var db = new RecipeDatabase(OdbFactory.Open(DATABASE_FILE_NAME));
+            db.Initialize();
 
             return db;
+        }
+
+        /// <summary>
+        /// Opens a new database in memory.
+        /// </summary>
+        /// <returns>An instance of <see cref="RecipeDatabase"/> that is ready to be queried.</returns>
+        public static RecipeDatabase OpenInMemory()
+        {
+            var db = new RecipeDatabase(OdbFactory.OpenInMemory());
+            db.Initialize();
+
+            return db;
+        }
+
+        private void Initialize()
+        {
+            if (!_odb.IndexManagerFor<Recipe>().ExistIndex("nameIndex"))
+            {
+                _odb.IndexManagerFor<Recipe>().AddUniqueIndexOn("nameIndex", new[] { "Name" });
+            }
         }
 
         /// <summary>
