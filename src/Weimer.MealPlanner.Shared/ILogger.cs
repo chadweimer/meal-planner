@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Weimer.MealPlanner.Shared
+﻿namespace Weimer.MealPlanner.Shared
 {
     public interface ILogger
     {
