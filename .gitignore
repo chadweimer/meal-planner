@@ -2,3 +2,4 @@
 src/packages/
 bin/
 obj/
+*.userprefs
