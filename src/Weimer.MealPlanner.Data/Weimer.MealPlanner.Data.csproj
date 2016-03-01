@@ -57,9 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\RefactoringEssentials.3.2.0\analyzers\dotnet\RefactoringEssentials.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Weimer.MealPlanner.Core\Weimer.MealPlanner.Core.csproj">
